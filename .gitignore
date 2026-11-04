@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-*
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+.next/
+dist/

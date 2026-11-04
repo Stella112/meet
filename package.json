@@ -1,0 +1,5 @@
+{
+  "name": "meet",
+  "private": true,
+  "engines": { "node": ">=20" }
+}
