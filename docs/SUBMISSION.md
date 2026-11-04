@@ -12,7 +12,7 @@
 - **Contracts:** TBD-post-build:MeetSettlement-address
 - **Agent wallet:** TBD-post-build:agent-wallet
 - **agentId:** TBD-post-build:agent-id
-- **Tag:** TBD-post-build:attribution-tag
+- **Tag:** celo_8d6bd2780c7d
 - **Repo:** TBD-post-build:repo-url
 - **App:** TBD-post-build:app-url
 - **Video:** TBD-post-build:video-url
