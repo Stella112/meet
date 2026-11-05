@@ -53,6 +53,17 @@ export class Store {
     return rows.map((r) => fromJson<StoredObligation>(r.body));
   }
 
+  byOwner(owner: string): StoredObligation[] {
+    const rows = this.db.prepare("select body from obligations").all() as { body: string }[];
+    return rows.map((r) => fromJson<StoredObligation>(r.body)).filter((o) => o.o.owner.toLowerCase() === owner.toLowerCase());
+  }
+
+  lastEvent(obligationId: string): { kind: string; detail: string; at: number } | null {
+    return (this.db.prepare("select kind, detail, at from events where obligation_id = ? order by id desc limit 1").get(obligationId) as
+      | { kind: string; detail: string; at: number }
+      | undefined) ?? null;
+  }
+
   heldCost(): bigint {
     return this.open().reduce((sum, o) => sum + (o.lot?.usdtCost ?? 0n), 0n);
   }
