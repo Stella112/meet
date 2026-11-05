@@ -12,8 +12,8 @@ const cfg = loadConfig();
 const settlement = process.env.MEET_SETTLEMENT_ADDRESS as Address;
 const tag = toDataSuffix(process.env.ATTRIBUTION_TAG!);
 const PORT = 4173;
-const NAIRA = 650n;
-const COUNT = 2;
+const NAIRA = 1400n;
+const COUNT = 1;
 const dir = new URL("../data/", import.meta.url);
 mkdirSync(dir, { recursive: true });
 

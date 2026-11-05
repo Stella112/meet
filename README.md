@@ -5,7 +5,7 @@ A naira treasury agent for dollar-earning businesses and people. It keeps your m
 
 Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.
 
-**Status: in development. Contract deployed on Celo mainnet. Two real test payments made between wallets one person controls.**
+**Status: in development. Contract deployed on Celo mainnet. Three real test payments made between wallets one person controls.**
 
 ## Demo
 
@@ -96,7 +96,7 @@ TBD-post-build:buy-tx-hashes
   - buy [`0x4777…34a`](https://celoscan.io/tx/0x477749ba33d29e49a7a2419d56b94004fe01895c4ea582623e6036b81a95034a), settle [`0x2048…5aa`](https://celoscan.io/tx/0x2048d1d5bcc0a39f18900abeaa390f63e1ab4227a66b67c920598dcb44e735aa)
 - The attribution tag is confirmed by `verifyTx` on each of those transactions.
 
-No payment via Textile yet: its minimum quote is ₦1,377.406.
+- One real ₦1,400 test payment via Textile (same builder-controlled wallets): buy [`0xcd04…7ae`](https://celoscan.io/tx/0xcd0484f327d5e2858145455011a8f4423f32daefa943dc960ce0eeb86ebdb7ae), settle [`0x60b2…0ce`](https://celoscan.io/tx/0x60b2ca395edde9fe2e967803f3d451d1d9a7bd7a696a7b2015177fa3e23240ce). Textile's minimum quote on this corridor is ₦1,377.406.
 
 ## Roadmap
 
