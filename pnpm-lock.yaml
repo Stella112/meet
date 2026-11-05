@@ -10,6 +10,9 @@ importers:
 
   agent:
     dependencies:
+      '@celo/attribution-tags':
+        specifier: 0.5.0
+        version: 0.5.0(typescript@7.0.2)(viem@2.57.16(typescript@7.0.2)(zod@4.6.7))(zod@4.6.7)
       better-sqlite3:
         specifier: 13.0.3
         version: 13.0.3
@@ -43,6 +46,15 @@ packages:
 
   '@adraffy/ens-normalize@1.11.1':
     resolution: {integrity: sha512-nhCBV3quEgesuf7c7KYfperqSS14T8bYuvJ8PcLJp6znkZpFc0AuW4qBtr8eKVyPPe/8RSr7sglCWPU5eaxwKQ==}
+
+  '@celo/attribution-tags@0.5.0':
+    resolution: {integrity: sha512-vh08K5lBd59eG2e6KG1tx24nh0tGRGNoVIwTd6cTXgavE5DAp5uO3dQnWzt+uPFyqGGBK6YxQg9QKK7/Ge3kfw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      viem: ^2
+    peerDependenciesMeta:
+      viem:
+        optional: true
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -855,6 +867,15 @@ packages:
 snapshots:
 
   '@adraffy/ens-normalize@1.11.1': {}
+
+  '@celo/attribution-tags@0.5.0(typescript@7.0.2)(viem@2.57.16(typescript@7.0.2)(zod@4.6.7))(zod@4.6.7)':
+    dependencies:
+      ox: 0.14.59(typescript@7.0.2)(zod@4.6.7)
+    optionalDependencies:
+      viem: 2.57.16(typescript@7.0.2)(zod@4.6.7)
+    transitivePeerDependencies:
+      - typescript
+      - zod
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true

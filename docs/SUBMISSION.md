@@ -9,11 +9,11 @@
 - **Volume note:** TBD-post-build:volume-note (brief says all taker volume, which is only true if the maker doesn't ship)
 - **Users:** TBD-post-build:user-sources
 - **Services with proof:** TBD-post-build:buy-tx-hashes
-- **Contracts:** TBD-post-build:MeetSettlement-address
-- **Agent wallet:** TBD-post-build:agent-wallet
+- **Contracts:** 0x666792B9eF14D6Ca9AAEee598784efcfD2840591
+- **Agent wallet:** 0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956
 - **agentId:** TBD-post-build:agent-id
 - **Tag:** celo_8d6bd2780c7d
-- **Repo:** TBD-post-build:repo-url
+- **Repo:** https://github.com/Stella112/meet
 - **App:** TBD-post-build:app-url
 - **Video:** TBD-post-build:video-url
 - **Disclaimer:** Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.

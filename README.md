@@ -5,7 +5,7 @@ A naira treasury agent for dollar-earning businesses and people. It keeps your m
 
 Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.
 
-**Status: in development. Not deployed yet. No real payment has been made.**
+**Status: in development. Contract deployed on Celo mainnet. No real payment has been made yet.**
 
 ## Demo
 
@@ -75,9 +75,9 @@ Solidity, Foundry, OpenZeppelin; Node, TypeScript, viem, better-sqlite3, zod, pi
 ## Hackathon entry data
 
 - Attribution tag: `celo_8d6bd2780c7d`
-- Agent wallet: TBD-post-build:agent-wallet
+- Agent wallet: [`0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956`](https://celoscan.io/address/0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956)
 - ERC-8004 agentId: TBD-post-build:agent-id
-- MeetSettlement: TBD-post-build:MeetSettlement-address
+- MeetSettlement: [`0x666792B9eF14D6Ca9AAEee598784efcfD2840591`](https://celoscan.io/address/0x666792B9eF14D6Ca9AAEee598784efcfD2840591)
 
 ## Services used (Build with buy) and proof of payment
 
@@ -89,7 +89,9 @@ TBD-post-build:buy-tx-hashes
 - A viem signature is accepted by the contract in tests.
 - Agent logic tests and the demo-fixture dry-run pass.
 
-Nothing has been deployed or paid on mainnet yet.
+- MeetSettlement deployed on Celo mainnet, with the attribution tag confirmed by `verifyTx` on the deploy tx: [`0x96d876e028f8c341d8754eade0b8095435af7b8afdf03024942f5664c8c2d100`](https://celoscan.io/tx/0x96d876e028f8c341d8754eade0b8095435af7b8afdf03024942f5664c8c2d100).
+
+No real payment has been made on mainnet yet.
 
 ## Roadmap
 

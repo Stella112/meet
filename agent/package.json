@@ -8,6 +8,7 @@
     "dry-run:quotes": "tsx src/liveQuotes.ts"
   },
   "dependencies": {
+    "@celo/attribution-tags": "0.5.0",
     "better-sqlite3": "13.0.3",
     "pino": "10.4.0",
     "viem": "2.57.16",
