@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { hashTypedData, zeroAddress } from "viem";
 import { CNGN, domain, obligationTypes, validateObligation } from "../src/eip712.js";
-import { runBatch } from "../src/engine.js";
+import { MaybeBought, runBatch } from "../src/engine.js";
 import { DAY, HOUR, makeDeps, makeObligation, RATE, T0, testAccount } from "../src/fixtures.js";
 
 const due = T0 + 3 * DAY;
@@ -104,6 +104,33 @@ describe("engine", () => {
 });
 
 describe("recovery", () => {
+  test("uncertain buy is held for review and never rebought", async () => {
+    const { d, w, exec } = makeDeps();
+    let calls = 0;
+    exec.buy = async () => {
+      calls++;
+      throw new MaybeBought("receipt timeout");
+    };
+    d.store.add(makeObligation("a", 10n));
+    w.now = atBuffer;
+    await runBatch(d, w.now);
+    w.now += 60;
+    await runBatch(d, w.now);
+    expect(calls).toBe(1);
+    expect(d.store.get("a")!.status).toBe("buying");
+  });
+
+  test("buy failing before broadcast returns to pending", async () => {
+    const { d, w, exec } = makeDeps();
+    exec.buy = async () => {
+      throw new Error("no_quote");
+    };
+    d.store.add(makeObligation("a", 10n));
+    w.now = atBuffer;
+    await runBatch(d, w.now);
+    expect(d.store.get("a")!.status).toBe("pending");
+  });
+
   test("settle failure keeps cNGN, retries, never buys twice", async () => {
     const { d, w, exec } = makeDeps();
     exec.failNextSettles = 1;

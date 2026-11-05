@@ -9,3 +9,4 @@ contracts/cache/
 contracts/broadcast/
 .next/
 dist/
+agent/data/

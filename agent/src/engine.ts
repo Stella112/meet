@@ -6,6 +6,9 @@ import { costAt, formatSaving, savedAgainst } from "./savings.js";
 import type { Store } from "./store.js";
 import type { Lot, News, StoredObligation, Venue, VenueQuote } from "./types.js";
 
+/** The buy reached the chain with an unknown or failed result. Needs a human look; never rebuy. */
+export class MaybeBought extends Error {}
+
 export interface Quotes {
   textileBuy(cngn: bigint): Promise<VenueQuote | null>;
   uniswapBuy(cngn: bigint): Promise<VenueQuote | null>;
@@ -182,11 +185,20 @@ async function handlePending(d: Deps, o: StoredObligation, now: number, news: Ne
   }
 
   d.store.log(now, o.id, "route", `${r.quote.venue} ${r.reason}`);
+  // "buying" survives a crash and leaves the open set, so one obligation can never be bought twice.
+  o.status = "buying";
+  d.store.save(o);
   let lot: Lot;
   try {
     lot = await d.exec.buy(r.quote, o.o.buyAmount);
   } catch (e) {
     d.store.log(now, o.id, "buy_failed", String(e));
+    if (e instanceof MaybeBought) {
+      d.notify.tell(o, "Payment is under review. Your funds have not moved.");
+    } else {
+      o.status = "pending";
+      d.store.save(o);
+    }
     return;
   }
   d.store.setLot(o, lot, "bought");

@@ -30,7 +30,7 @@ export interface VenueQuote {
   at: number;
 }
 
-export type Status = "pending" | "bought" | "paid" | "expired" | "cancelled" | "failed";
+export type Status = "pending" | "buying" | "bought" | "paid" | "expired" | "cancelled" | "failed";
 
 export interface Lot {
   cngn: bigint;
