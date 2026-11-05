@@ -5,7 +5,7 @@ A naira treasury agent for dollar-earning businesses and people. It keeps your m
 
 Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.
 
-**Status: in development. Contract deployed on Celo mainnet. No real payment has been made yet.**
+**Status: in development. Contract deployed on Celo mainnet. Two real test payments made between wallets one person controls.**
 
 ## Demo
 
@@ -91,7 +91,12 @@ TBD-post-build:buy-tx-hashes
 
 - MeetSettlement deployed on Celo mainnet, with the attribution tag confirmed by `verifyTx` on the deploy tx: [`0x96d876e028f8c341d8754eade0b8095435af7b8afdf03024942f5664c8c2d100`](https://celoscan.io/tx/0x96d876e028f8c341d8754eade0b8095435af7b8afdf03024942f5664c8c2d100).
 
-No real payment has been made on mainnet yet.
+- Two real ₦650 test payments on Celo mainnet via the Uniswap fallback, owner and payee both controlled by the builder (not independent users):
+  - buy [`0xa27e…b6d`](https://celoscan.io/tx/0xa27e0bb4f87282c05d66475addcbe0beeacda08d188ee71b03b3adb827ae5b6d), settle [`0xd838…5fb`](https://celoscan.io/tx/0xd8385447e6ff75680ab8df369f6b904cbc84cfd394c3268474aea32fda9595fb)
+  - buy [`0x4777…34a`](https://celoscan.io/tx/0x477749ba33d29e49a7a2419d56b94004fe01895c4ea582623e6036b81a95034a), settle [`0x2048…5aa`](https://celoscan.io/tx/0x2048d1d5bcc0a39f18900abeaa390f63e1ab4227a66b67c920598dcb44e735aa)
+- The attribution tag is confirmed by `verifyTx` on each of those transactions.
+
+No payment via Textile yet: its minimum quote is ₦1,377.406.
 
 ## Roadmap
 

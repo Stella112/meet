@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { withAttribution } from "@celo/attribution-tags";
-import { createPublicClient, createWalletClient, decodeFunctionData, erc20Abi, http, parseAbi } from "viem";
+import { createPublicClient, createWalletClient, decodeFunctionData, erc20Abi, http, parseAbi, parseEventLogs } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { celo } from "viem/chains";
 import { isLive, type Config } from "./config.js";
@@ -86,10 +86,6 @@ export class LiveExecutor implements Executor {
     this.wallet = createWalletClient({ account: this.account, chain: celo, transport: http(cfg.CELO_RPC_URL) }).extend(
       withAttribution(tag),
     );
-  }
-
-  private balance(token: Address) {
-    return this.client.readContract({ address: token, abi: erc20Abi, functionName: "balanceOf", args: [this.account.address] });
   }
 
   private async confirm(hash: Hex, what: string): Promise<void> {
@@ -201,22 +197,29 @@ export class LiveExecutor implements Executor {
     return { hash };
   }
 
+  /** Amounts moved by a tx, read from its receipt logs. Balance reads can lag behind the receipt on public RPCs. */
+  async transfersIn(hash: Hex): Promise<{ cngnIn: bigint; usdtOut: bigint }> {
+    const receipt = await this.client.waitForTransactionReceipt({ hash });
+    if (receipt.status !== "success") throw new Error(`reverted: ${hash}`);
+    const me = this.account.address.toLowerCase();
+    let cngnIn = 0n;
+    let usdtOut = 0n;
+    for (const log of parseEventLogs({ abi: erc20Abi, eventName: "Transfer", logs: receipt.logs })) {
+      const token = log.address.toLowerCase();
+      if (token === CNGN.toLowerCase() && log.args.to.toLowerCase() === me) cngnIn += log.args.value;
+      if (token === USDT.toLowerCase() && log.args.from.toLowerCase() === me) usdtOut += log.args.value;
+    }
+    return { cngnIn, usdtOut };
+  }
+
   async buy(quote: VenueQuote, cngn: bigint): Promise<Lot> {
-    const usdtBefore = await this.balance(USDT);
-    const cngnBefore = await this.balance(CNGN);
     // Plain errors from the buy helpers mean the swap was never sent; MaybeBought means it may have been.
     const { hash } = quote.venue === "textile" ? await this.buyTextile(quote, cngn) : await this.buyUniswap(quote, cngn);
+    this.onLog(`buy on ${quote.venue} tx ${hash}`);
     try {
-      await this.confirm(hash, `buy on ${quote.venue}`);
-      const got = (await this.balance(CNGN)) - cngnBefore;
-      if (got < cngn) throw new Error(`received ${got}, wanted ${cngn}`);
-      return {
-        cngn,
-        usdtCost: usdtBefore - (await this.balance(USDT)),
-        venue: quote.venue,
-        boughtAt: this.now(),
-        txHash: hash,
-      };
+      const { cngnIn, usdtOut } = await this.transfersIn(hash);
+      if (cngnIn < cngn) throw new Error(`received ${cngnIn}, wanted ${cngn}`);
+      return { cngn, usdtCost: usdtOut, venue: quote.venue, boughtAt: this.now(), txHash: hash };
     } catch (e) {
       throw new MaybeBought(`${hash}: ${String(e)}`);
     }

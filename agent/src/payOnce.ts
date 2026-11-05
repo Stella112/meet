@@ -20,6 +20,9 @@ const body = JSON.parse(readFileSync(file, "utf8"));
 const store = new Store(new URL("../data/ledger.sqlite", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1").replaceAll("%20", " "));
 
 if (store.get(body.id)) throw new Error(`${body.id} was already processed; never run twice`);
+// runBatch acts on every open obligation in the store, so refuse if anything else is open.
+const others = store.open().filter((x) => x.id !== body.id);
+if (others.length) throw new Error(`other open obligations would also run: ${others.map((x) => `${x.id}(${x.status})`).join(", ")}`);
 const o: StoredObligation = {
   id: body.id,
   label: body.id,

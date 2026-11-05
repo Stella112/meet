@@ -108,3 +108,11 @@ Reported depth: $79,597 selling USDT; ₦16,089,756 selling cNGN.
 | x402 20 free settlements | GREEN |
 | AskBots | FLAG: page says reviewer agents rate projects; no "pre-check" wording |
 | Attribution repo | README read; SDK API detail in `sdk/README.md`, to read before Phase 4 |
+
+# Live findings: 2026-11-05
+
+| Fact | Evidence | Status |
+|---|---|---|
+| Textile firm RFQ minimum on Celo cNGN/USDT is ₦1,377.406 (`buyAmount` 1377406000) | `/rfq/request` returned 400 `invalid_request`: "buyAmount is below the RFQ minimum (1377406000 atomic units)", request `req_b467a803-aff5-446e-af27-5175d0e13471` | GREEN |
+| Public RPC balance reads can lag a mined receipt | buy `0x4777…034a` succeeded with a cNGN Transfer in its logs while `balanceOf` read 0 | GREEN; agent now reads amounts from receipt logs |
+| Every Meet tx carries `celo_8d6bd2780c7d` | `verifyTx` on deploy, approvals, both buys and both settles | GREEN |
