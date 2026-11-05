@@ -1,3 +1,4 @@
+import { mkdirSync } from "node:fs";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { isLive, loadConfig } from "./config.js";
 import { obligationSchema, validateObligation } from "./eip712.js";
@@ -15,6 +16,7 @@ const settlement = process.env.MEET_SETTLEMENT_ADDRESS as Address;
 const clock = () => Math.floor(Date.now() / 1000);
 // Dry-run results go to their own file so simulated payments never mix with real ones.
 const dbPath = new URL(isLive(cfg) ? "../data/ledger.sqlite" : "../data/ledger.dry.sqlite", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1").replaceAll("%20", " ");
+mkdirSync(new URL("../data/", import.meta.url), { recursive: true });
 const store = new Store(dbPath);
 const quotes = liveQuotes(cfg, clock);
 const exec: Executor = isLive(cfg)
