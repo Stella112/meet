@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { isAddress } from "viem";
-import { useConnection, useWalletClient } from "wagmi";
+import { useConnect, useConnection, useDisconnect, useWalletClient } from "wagmi";
 import { celo } from "wagmi/chains";
 import { CNGN, erc20, naira, obligationTypes, publicClient, settlementAbi, short, TAG, txLink, USDT, usd } from "@/lib/chain";
 
@@ -187,11 +187,17 @@ export default function Home() {
       </header>
 
       {!isConnected ? (
-        <div className="card text-sm">Open Meet inside MiniPay, or in a browser with a Celo wallet. Connecting…</div>
+        <WalletPicker />
       ) : chainId !== celo.id ? (
-        <div className="card text-sm">Switch your wallet to Celo.</div>
+        <div className="card text-sm space-y-2">
+          <p>Switch your wallet to Celo.</p>
+          <SwitchWallet />
+        </div>
       ) : (
         <>
+          <p className="text-xs muted">
+            Connected {short(address ?? "")} · <SwitchWallet />
+          </p>
           <section className="card space-y-3">
             <div className="flex gap-2">
               {(Object.keys(PRESETS) as Preset[]).map((p) => (
@@ -281,5 +287,38 @@ export default function Home() {
         </>
       )}
     </>
+  );
+}
+
+function WalletPicker() {
+  const { mutate, connectors, isPending, error } = useConnect();
+  const inMiniPay = typeof window !== "undefined" && (window as { ethereum?: { isMiniPay?: boolean } }).ethereum?.isMiniPay;
+  if (inMiniPay) return <div className="card text-sm">Connecting to MiniPay…</div>;
+  // Named wallets found by EIP-6963 first; the generic "Injected" entry only when nothing else was announced.
+  const named = connectors.filter((c) => c.id !== "injected");
+  const list = named.length ? named : connectors;
+  return (
+    <div className="card text-sm space-y-2">
+      <p>Choose a wallet on the Celo network.</p>
+      {list.length === 0 && <p className="muted">No wallet found. Open Meet inside MiniPay or a wallet app's browser.</p>}
+      {list.map((c) => (
+        <button key={c.uid} className="chip w-full text-left flex items-center gap-2" disabled={isPending} onClick={() => mutate({ connector: c })}>
+          {c.icon && <img src={c.icon} alt="" width={20} height={20} />}
+          {c.name}
+        </button>
+      ))}
+      {error && <p style={{ color: "var(--warn)" }}>{error.message.split("\n")[0]}</p>}
+    </div>
+  );
+}
+
+function SwitchWallet() {
+  const { mutate } = useDisconnect();
+  const inMiniPay = typeof window !== "undefined" && (window as { ethereum?: { isMiniPay?: boolean } }).ethereum?.isMiniPay;
+  if (inMiniPay) return null;
+  return (
+    <button className="underline" onClick={() => mutate()}>
+      switch wallet
+    </button>
   );
 }
