@@ -9,7 +9,7 @@ Nothing here runs until Maris says "continue" for that row.
 | 3 | Register on Loops House (issues tag) | Maris only | event page | pending |
 | 4 | Create and fund taker/solver wallet | Maris only | USDT, plus gas | pending |
 | 5 | Create and fund maker wallet | Maris only | only if maker access is granted | pending |
-| 6 | Fund buy wallet | assisted | `npx --yes @celo/buy@<pinned> setup --name buy`, then send stablecoin | pending |
+| 6 | Fund buy wallet | assisted | `pnpm --filter agent exec buy setup --name buy` (@celo/buy 0.8.5), then send stablecoin | created 0x134ee545D978Ad5e7a5aF2f082fa336C4589A018 (key in OS keychain); not funded yet |
 | 7 | Set `.env` | Maris only | copy `.env.example`; never paste keys in chat | pending |
 | 8 | Street-rate entry each day | Maris only | manual, timestamped | pending |
 | 9 | Approve mainnet deploy | Maris only | after `forge test` output | done: 0x6667…0591 |

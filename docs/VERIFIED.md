@@ -54,7 +54,7 @@ GREEN = confirmed. RED = failed. FLAG = differs or needs a decision. DEFERRED = 
 | Fact | Status |
 |---|---|
 | x402 `/supported` lists USDC, USDT, USAT, cNGN (Permit2) | GREEN: cNGN confirmed |
-| `@celo/buy` | FLAG: npm 0.8.5, README pins 0.8.4. Pin after reading the 0.8.5 changes |
+| `@celo/buy` | Pinned 0.8.5 in `agent` on 2026-11-06 (its README now uses 0.8.5) |
 | npm: attribution-tags 0.5.0; @x402/* 2.29.0; viem 2.57.16; better-sqlite3 13.0.3 | GREEN (exist) |
 | Attribution API: `toDataSuffix`, `verifyTx`; viem `concat`; wagmi `dataSuffix` (docs.celo.org) | GREEN; package repo README not yet read |
 | ERC-8004 `register(string)`, `Registered` event | GREEN. The docs do not mandate an agent card path |

@@ -76,6 +76,7 @@ Solidity, Foundry, OpenZeppelin; Node, TypeScript, viem, better-sqlite3, zod, pi
 
 - Attribution tag: `celo_8d6bd2780c7d`
 - Agent wallet: [`0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956`](https://celoscan.io/address/0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956)
+- Buy wallet (pays Build with buy services): [`0x134ee545D978Ad5e7a5aF2f082fa336C4589A018`](https://celoscan.io/address/0x134ee545D978Ad5e7a5aF2f082fa336C4589A018)
 - ERC-8004 agentId: [`10044`](https://celoscan.io/tx/0x33c720a99de8c9b793748e7b3497383a4f638efa2c5cadefe99b5901b5a20a17) in the Identity Registry `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`; agent card at https://usemeet.website/.well-known/agent-registration.json
 - MeetSettlement: [`0x666792B9eF14D6Ca9AAEee598784efcfD2840591`](https://celoscan.io/address/0x666792B9eF14D6Ca9AAEee598784efcfD2840591)
 
