@@ -104,8 +104,8 @@ async function trySettle(d: Deps, o: StoredObligation, now: number, rule: string
   const sellAmount = grossUp(lot.usdtCost, d.cfg.PROTOCOL_FEE_BPS);
   try {
     const tx = await d.exec.settle(o, sellAmount);
-    const vsStreet = formatSaving(savedAgainst(o.o.buyAmount, sellAmount, freshStreet(d.store.street(), now, d.cfg.STREET_MAX_AGE_HOURS)));
-    const vsDay1 = formatSaving(savedAgainst(o.o.buyAmount, sellAmount, o.day1));
+    const street = savedAgainst(o.o.buyAmount, sellAmount, freshStreet(d.store.street(), now, d.cfg.STREET_MAX_AGE_HOURS));
+    const day1 = savedAgainst(o.o.buyAmount, sellAmount, o.day1);
     d.store.addLedger({
       obligationId: o.id,
       label: o.label,
@@ -114,8 +114,10 @@ async function trySettle(d: Deps, o: StoredObligation, now: number, rule: string
       routeReason,
       paidUsdt: sellAmount,
       deliveredCngn: o.o.buyAmount,
-      vsStreet,
-      vsDay1,
+      vsStreet: formatSaving(street),
+      vsDay1: formatSaving(day1),
+      savedStreetCngn: street?.cngn ?? null,
+      savedDay1Cngn: day1?.cngn ?? null,
       buyTx: lot.txHash,
       settleTx: tx,
       at: now,

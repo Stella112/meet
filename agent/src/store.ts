@@ -15,6 +15,9 @@ export interface LedgerRow {
   deliveredCngn: bigint;
   vsStreet: string;
   vsDay1: string;
+  /** Signed cNGN saved; absent on rows written before 2026-11-06 (parse vsStreet/vsDay1 instead). */
+  savedStreetCngn?: bigint | null;
+  savedDay1Cngn?: bigint | null;
   buyTx: string;
   settleTx: string;
   at: number;
@@ -91,6 +94,16 @@ export class Store {
   ledger(): LedgerRow[] {
     const rows = this.db.prepare("select body from ledger order by id").all() as { body: string }[];
     return rows.map((r) => fromJson<LedgerRow>(r.body));
+  }
+
+  statusCounts(): Record<string, number> {
+    const rows = this.db.prepare("select status, count(*) as n from obligations group by status").all() as { status: string; n: number }[];
+    return Object.fromEntries(rows.map((r) => [r.status, r.n]));
+  }
+
+  paidCalls(): { day: string; service: string; atomic: bigint; tx: string | null; ok: boolean }[] {
+    const rows = this.db.prepare("select day, service, atomic, tx, ok from paid_calls order by id").all() as { day: string; service: string; atomic: string; tx: string | null; ok: number }[];
+    return rows.map((r) => ({ ...r, atomic: BigInt(r.atomic), ok: r.ok === 1 }));
   }
 
   /** Manual entry by Maris; shown as "manual, entered at <time>". */

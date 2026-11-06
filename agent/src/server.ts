@@ -9,6 +9,7 @@ import { textilePreviewBuy } from "./liveQuotes.js";
 import { xNewsSense } from "./news.js";
 import { Store } from "./store.js";
 import { freshStreet, streetEntry, tokenOk } from "./street.js";
+import { buildDashboard } from "./dashboard.js";
 import type { Address, Hex, StoredObligation } from "./types.js";
 
 // Agent API for the web app plus the batch loop. Dry-run unless both live flags are set.
@@ -152,6 +153,10 @@ createServer(async (req, res) => {
           receipt: ledger.find((r) => r.obligationId === o.id) ?? null,
         }));
       return json(res, 200, { items, live: isLive(cfg) });
+    }
+
+    if (req.method === "GET" && url.pathname === "/api/dashboard") {
+      return json(res, 200, buildDashboard(store, now, { live: isLive(cfg), streetMaxAgeHours: cfg.STREET_MAX_AGE_HOURS }));
     }
 
     if (req.method === "GET" && url.pathname === "/api/street") {
