@@ -11,7 +11,7 @@ import type { Address, Hex, StoredObligation } from "./types.js";
 
 // Agent API for the web app plus the batch loop. Dry-run unless both live flags are set.
 const cfg = loadConfig();
-const PORT = Number(process.env.AGENT_PORT ?? 8787);
+const PORT = Number(process.env.AGENT_PORT ?? 8797);
 const settlement = process.env.MEET_SETTLEMENT_ADDRESS as Address;
 const clock = () => Math.floor(Date.now() / 1000);
 // Dry-run results go to their own file so simulated payments never mix with real ones.
