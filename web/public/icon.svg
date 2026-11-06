@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Meet">
+  <rect width="256" height="256" rx="56" fill="#0f1411"/>
+  <path d="M60 188V76l68 70 68-70v112" fill="none" stroke="#35d07f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

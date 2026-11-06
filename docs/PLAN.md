@@ -37,7 +37,7 @@ Each task has one verification command. Feature freeze Sunday evening.
 |---|---|
 | X search as news sense, one paid call | `cast receipt <payment-tx> --rpc-url https://forno.celo.org` |
 | Cencori classification and receipts, one paid call | `cast receipt <payment-tx> --rpc-url https://forno.celo.org` |
-| Tags on every tx | `node scripts/check-tags.mjs` |
+| Tags on every tx | `pnpm --filter agent check-tags` |
 | ERC-8004 and agent card | `cast logs` for `Registered` from the agent wallet |
 
 ## Phase 5: Maker, dashboard, P1 (Sat)

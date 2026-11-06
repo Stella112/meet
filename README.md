@@ -94,7 +94,7 @@ TBD-post-build:buy-tx-hashes
 - Two real ₦650 test payments on Celo mainnet via the Uniswap fallback, owner and payee both controlled by the builder (not independent users):
   - buy [`0xa27e…b6d`](https://celoscan.io/tx/0xa27e0bb4f87282c05d66475addcbe0beeacda08d188ee71b03b3adb827ae5b6d), settle [`0xd838…5fb`](https://celoscan.io/tx/0xd8385447e6ff75680ab8df369f6b904cbc84cfd394c3268474aea32fda9595fb)
   - buy [`0x4777…34a`](https://celoscan.io/tx/0x477749ba33d29e49a7a2419d56b94004fe01895c4ea582623e6036b81a95034a), settle [`0x2048…5aa`](https://celoscan.io/tx/0x2048d1d5bcc0a39f18900abeaa390f63e1ab4227a66b67c920598dcb44e735aa)
-- The attribution tag is confirmed by `verifyTx` on each of those transactions.
+- The attribution tag is confirmed by `verifyTx` on each of those transactions. `pnpm --filter agent check-tags` lists every tx the agent wallet has sent (from Blockscout) and checks each one; on 2026-11-06 all 14 were tagged.
 
 - One real ₦1,400 test payment via Textile (same builder-controlled wallets): buy [`0xcd04…7ae`](https://celoscan.io/tx/0xcd0484f327d5e2858145455011a8f4423f32daefa943dc960ce0eeb86ebdb7ae), settle [`0x60b2…0ce`](https://celoscan.io/tx/0x60b2ca395edde9fe2e967803f3d451d1d9a7bd7a696a7b2015177fa3e23240ce). Textile's minimum quote on this corridor is ₦1,377.406.
 
