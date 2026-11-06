@@ -1,0 +1,13 @@
+{
+  "hackathonStart": "2026-10-06T00:00:00Z",
+  "hackathonStartNote": "The event page gives no start date; Tue 6 Oct (kick-off livestream) is its first timeline entry. Override with --since.",
+  "rule": "Independent user (loops.house/agents-on-open-rails FAQ): a wallet that is not yours, was not first funded by you or your main funder, and had its own activity on Celo before the hackathon started.",
+  "wallets": {
+    "0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956": "agent wallet",
+    "0x134ee545D978Ad5e7a5aF2f082fa336C4589A018": "buy wallet",
+    "0xD452eed08e545d186c8a87e4c9001fc08A60Bab7": "treasury and test owner",
+    "0xdc646c197d0202fc2a0326af8ab55066a3549e2e": "test payee",
+    "0x666792B9eF14D6Ca9AAEee598784efcfD2840591": "MeetSettlement contract"
+  },
+  "sharedFunderMinTxs": 1000
+}

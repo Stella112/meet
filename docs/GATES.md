@@ -18,6 +18,6 @@ Nothing here runs until Maris says "continue" for that row.
 | 12 | Textile API key (optional) | Maris only | Textile app | pending |
 | 13 | x402 API key (P1) | Maris only | x402.celo.org | pending |
 | 14 | First live payments | assisted | two Maris wallets, tiny amounts | done: 2 Uniswap, 1 Textile |
-| 15 | Recruit eligible users | Maris only | eligibility checker first | pending |
+| 15 | Recruit eligible users | Maris only | check each wallet first: `node scripts/eligibility.mjs <addr>` | pending |
 | 16 | Optional top-up | assisted | dry-run first, eligible wallets only | pending |
 | 17 | Add agent wallet to entry and submit | Maris only | from `docs/SUBMISSION.md` | pending |

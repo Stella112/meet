@@ -52,7 +52,7 @@ Each task has one verification command. Feature freeze Sunday evening.
 
 | Task | Verify |
 |---|---|
-| Kit and eligibility checker | `node scripts/eligibility.mjs <addr>` |
+| Kit and eligibility checker | `node scripts/eligibility.mjs <addr>` (checker done 2026-11-06; kit not started) |
 | README | `node scripts/check-readme.mjs` |
 | Submission | `grep -c TBD-post-build docs/SUBMISSION.md` returns 0 |
 | Secrets | `git log -p \| grep -i "private\|key"` reviewed |
