@@ -45,13 +45,14 @@ If settlement fails, the cNGN stays as Meet's inventory, is retried within the h
 
 ## Prompts & safety
 
-- The LLM only classifies news and writes receipt text. Code makes every money decision.
+- Code makes every money decision. News is one paid X search, classified by a fixed rule: `shock` only when two different accounts report a devaluation, a CBN FX halt, or a naira drop of 3% or more. There is no LLM step: the buy catalog's only model (Cencori `maximo-atlas-1.3`) was retired upstream on 2026-11-06.
+- Paid news spends real money even in dry-run, so it has its own switch: `PAID_NEWS=true` plus a `BUY_ACCOUNT_NAME` set up on that machine.
 - `DRY_RUN=true` is the default. A mainnet tx needs both `DRY_RUN=false` and the `LIVE_ACK` value.
 - Enforced caps cover obligation size, daily paid-service spend, cNGN exposure, slippage, hold time and inventory loss.
 - Paid calls are never retried automatically.
 - `PAUSED=true` and the contract's `pause()` are the kill switch.
 
-TBD-post-build:prompts
+News query and rule: [`agent/src/news.ts`](agent/src/news.ts), tested against real posts in [`agent/test/news.test.ts`](agent/test/news.test.ts).
 
 ## Run it
 
@@ -66,7 +67,7 @@ Environment variables (see `.env.example`):
 | `PROTOCOL_FEE_BPS`, `TREASURY_ADDRESS` | Protocol fee |
 | `CELO_RPC_URL`, `AGENT_PRIVATE_KEY`, `MEET_SETTLEMENT_ADDRESS` | Chain access |
 | `ATTRIBUTION_TAG`, `ERC8004_AGENT_ID` | Hackathon identity |
-| `TEXTILE_API_KEY`, `X402_API_KEY`, `BUY_ACCOUNT_NAME`, `STREET_RATE_SOURCE` | Services |
+| `TEXTILE_API_KEY`, `X402_API_KEY`, `BUY_ACCOUNT_NAME`, `PAID_NEWS`, `STREET_RATE_SOURCE` | Services |
 
 ## Tech stack
 
@@ -82,7 +83,13 @@ Solidity, Foundry, OpenZeppelin; Node, TypeScript, viem, better-sqlite3, zod, pi
 
 ## Services used (Build with buy) and proof of payment
 
-TBD-post-build:buy-tx-hashes
+Paid from the buy wallet `0x134e…A018` in USD₮ on Celo mainnet, through the buy gateway:
+
+| Service | What it does in Meet | Price | Payment tx | Result |
+|---|---|---|---|---|
+| `x.posts.search` | News sense: last 24 h of naira/CBN posts | $0.005 | [`0xabc1…6bc`](https://celoscan.io/tx/0xabc1479292edf6b2f3445f2ba864d00f24464b80cd5fc5879f90711e832986bc) | 200, 16 posts |
+| `x.posts.search` | Same, through the agent's `xNewsSense` | $0.005 | [`0xd92b…93a`](https://celoscan.io/tx/0xd92b50c77f0a5ed1232d3524f5b5a8dc98c8aacc3b1381477243d6dbbf3b293a) | 200, classified `normal` |
+| `cencori.v1.chat.completions` | Tried for news classification | $0.01 | [`0xce8b…806`](https://celoscan.io/tx/0xce8b943c6e6ccad542c4d45c0b8d06307a78d6d0089f6035f01f6b42e78b7806) | Paid, then 400: model retired upstream. Not used. |
 
 ## What is verified
 

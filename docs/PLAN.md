@@ -35,8 +35,8 @@ Each task has one verification command. Feature freeze Sunday evening.
 
 | Task | Verify |
 |---|---|
-| X search as news sense, one paid call | `cast receipt <payment-tx> --rpc-url https://forno.celo.org` |
-| Cencori classification and receipts, one paid call | `cast receipt <payment-tx> --rpc-url https://forno.celo.org` |
+| X search as news sense, one paid call | `cast receipt <payment-tx> --rpc-url https://forno.celo.org` (done: 0xabc1…6bc, 0xd92b…93a) |
+| Cencori classification and receipts, one paid call | Blocked 2026-11-06: gateway only accepts `maximo-atlas-1.3`, which Cencori has retired. News uses a tested rule instead |
 | Tags on every tx | `pnpm --filter agent check-tags` |
 | ERC-8004 and agent card | `cast logs` for `Registered` from the agent wallet |
 

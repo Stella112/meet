@@ -8,7 +8,7 @@
 - **Custody:** Your dollars stay in your wallet until your payee is paid. Meet buys naira early with its own money and bears that risk.
 - **Volume note:** TBD-post-build:volume-note (brief says all taker volume, which is only true if the maker doesn't ship)
 - **Users:** TBD-post-build:user-sources
-- **Services with proof:** TBD-post-build:buy-tx-hashes
+- **Services with proof:** buy `x.posts.search` as the news sense, paid in USD₮ from 0x134ee545D978Ad5e7a5aF2f082fa336C4589A018: 0xabc1479292edf6b2f3445f2ba864d00f24464b80cd5fc5879f90711e832986bc, 0xd92b50c77f0a5ed1232d3524f5b5a8dc98c8aacc3b1381477243d6dbbf3b293a. A Cencori call (0xce8b943c6e6ccad542c4d45c0b8d06307a78d6d0089f6035f01f6b42e78b7806) was paid but failed upstream (model retired), so news is classified by a fixed rule.
 - **Contracts:** 0x666792B9eF14D6Ca9AAEee598784efcfD2840591
 - **Agent wallet:** 0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956
 - **agentId:** 10044 (ERC-8004 Identity Registry on Celo, register tx 0x33c720a99de8c9b793748e7b3497383a4f638efa2c5cadefe99b5901b5a20a17)

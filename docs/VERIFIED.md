@@ -116,3 +116,7 @@ Reported depth: $79,597 selling USDT; ₦16,089,756 selling cNGN.
 | Textile firm RFQ minimum on Celo cNGN/USDT is ₦1,377.406 (`buyAmount` 1377406000) | `/rfq/request` returned 400 `invalid_request`: "buyAmount is below the RFQ minimum (1377406000 atomic units)", request `req_b467a803-aff5-446e-af27-5175d0e13471` | GREEN |
 | Public RPC balance reads can lag a mined receipt | buy `0x4777…034a` succeeded with a cNGN Transfer in its logs while `balanceOf` read 0 | GREEN; agent now reads amounts from receipt logs |
 | Every Meet tx carries `celo_8d6bd2780c7d` | `verifyTx` on deploy, approvals, both buys and both settles | GREEN |
+| buy `x.posts.search` pays in USD₮ with `buy curl --token USDT`; the JSON reply carries `transaction` | 0xabc1479292edf6b2f3445f2ba864d00f24464b80cd5fc5879f90711e832986bc, 0xd92b50c77f0a5ed1232d3524f5b5a8dc98c8aacc3b1381477243d6dbbf3b293a: USD₮ Transfer 5000 from the buy wallet to the gateway | GREEN |
+| Cencori via buy is unusable | Gateway only quotes `maximo-atlas-1.3` (other models get a free 400); Cencori answered "has been retired" after payment, 0xce8b943c6e6ccad542c4d45c0b8d06307a78d6d0089f6035f01f6b42e78b7806 (10000 atomic) | RED |
+| `buy curl` exits 0 when the paid request ends 4xx; it warns on stderr with `paid: true`, `doNotRetry: true` | Cencori call above | GREEN; `agent/src/paid.ts` reads that warning |
+| Opinion posts mention "devaluation" daily | Two of 16 posts on 2026-11-06; rule now needs event wording | GREEN |

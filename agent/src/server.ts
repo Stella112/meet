@@ -6,6 +6,7 @@ import { runBatch, type Deps, type Executor } from "./engine.js";
 import { DryRunExecutor } from "./dryExecutor.js";
 import { LiveExecutor, liveChain, liveQuotes } from "./live.js";
 import { textilePreviewBuy } from "./liveQuotes.js";
+import { xNewsSense } from "./news.js";
 import { Store } from "./store.js";
 import type { Address, Hex, StoredObligation } from "./types.js";
 
@@ -29,8 +30,11 @@ const deps: Deps = {
   exec,
   quotes,
   chain: liveChain(cfg, settlement),
-  // Paid news is wired in Phase 4; until then the rule runs without it.
-  senses: { newsPrice: 0n, news: async () => ({ value: "unknown", tx: null }) },
+  // Paid news spends real money even in dry-run, so it has its own switch and needs a buy account on this machine.
+  senses:
+    process.env.PAID_NEWS === "true" && process.env.BUY_ACCOUNT_NAME
+      ? xNewsSense(process.env.BUY_ACCOUNT_NAME)
+      : { newsPrice: 0n, news: async () => ({ value: "unknown", tx: null }) },
   notify: { tell: (o, m) => store.log(clock(), o.id, "told_user", m) },
 };
 
