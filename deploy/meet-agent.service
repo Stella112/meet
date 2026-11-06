@@ -1,0 +1,22 @@
+[Unit]
+Description=Meet agent API and batch loop (localhost only; Caddy serves usemeet.website)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=meet
+Group=meet
+WorkingDirectory=/opt/meet/agent
+Environment=AGENT_PORT=8797
+# Secrets live only in /opt/meet/.env (mode 600, owner meet). Dry-run unless DRY_RUN=false and LIVE_ACK are both set there.
+ExecStart=/usr/bin/node --env-file=/opt/meet/.env --import tsx src/server.ts
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/meet/agent/data
+
+[Install]
+WantedBy=multi-user.target

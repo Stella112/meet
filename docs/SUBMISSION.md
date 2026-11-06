@@ -14,6 +14,6 @@
 - **agentId:** TBD-post-build:agent-id
 - **Tag:** celo_8d6bd2780c7d
 - **Repo:** https://github.com/Stella112/meet
-- **App:** TBD-post-build:app-url
+- **App:** https://usemeet.website
 - **Video:** TBD-post-build:video-url
 - **Disclaimer:** Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.

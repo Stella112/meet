@@ -1,0 +1,22 @@
+[Unit]
+Description=Meet web app (localhost only; Caddy serves usemeet.website)
+After=network-online.target meet-agent.service
+Wants=network-online.target
+
+[Service]
+User=meet
+Group=meet
+WorkingDirectory=/opt/meet/web
+Environment=NODE_ENV=production
+# /api/* is rewritten to the agent at 127.0.0.1:8797, fixed when `next build` ran.
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -p 3797 -H 127.0.0.1
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/meet/web/.next
+
+[Install]
+WantedBy=multi-user.target

@@ -11,7 +11,7 @@ Prototype for a hackathon, not a licensed money service. A regulatory review is 
 
 TBD-post-build:video-url
 
-TBD-post-build:app-url
+App: https://usemeet.website (agent in dry-run until live keys are set)
 
 ## What it does
 
@@ -70,7 +70,7 @@ Environment variables (see `.env.example`):
 
 ## Tech stack
 
-Solidity, Foundry, OpenZeppelin; Node, TypeScript, viem, better-sqlite3, zod, pino, vitest. Web app: TBD-post-build:web-stack-final.
+Solidity, Foundry, OpenZeppelin; Node, TypeScript, viem, better-sqlite3, zod, pino, vitest. Web app: Next.js 16, React 19, wagmi, viem, Tailwind 4; served from a VPS behind Caddy (see `deploy/`).
 
 ## Hackathon entry data
 

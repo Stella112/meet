@@ -1,0 +1,9 @@
+# Appended to /etc/caddy/Caddyfile on the VPS. Only the web app is public; the agent stays on localhost.
+usemeet.website {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:3797
+}
+
+www.usemeet.website {
+    redir https://usemeet.website{uri} permanent
+}
