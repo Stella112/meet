@@ -23,6 +23,7 @@ const schema = z.object({
   NEWS_TTL_MIN: int(120),
   PROTOCOL_FEE_BPS: int(10),
   BATCH_SECONDS: int(60),
+  STREET_MAX_AGE_HOURS: int(30),
   CELO_RPC_URL: z.string().default("https://forno.celo.org"),
 });
 

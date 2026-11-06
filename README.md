@@ -64,6 +64,7 @@ Environment variables (see `.env.example`):
 | `MAX_OBLIGATION_USD`, `MAX_DAILY_SERVICE_SPEND_USD`, `MAX_AGENT_CNGN_EXPOSURE_USD`, `MAX_HEDGE_SLIPPAGE_BPS`, `MAX_HOLD_MINUTES`, `MAX_INVENTORY_LOSS_BPS` | Hard caps |
 | `MAKER_IMPROVE_BPS`, `MAKER_PRIVATE_KEY` | Maker pricing and wallet |
 | `CONVERT_BUFFER_HOURS`, `EARLY_EDGE_BPS`, `NEWS_TTL_MIN`, `BATCH_SECONDS` | Agent timing |
+| `STREET_TOKEN`, `STREET_MAX_AGE_HOURS` | Daily street-rate entry at `/street`, and how long an entry counts |
 | `PROTOCOL_FEE_BPS`, `TREASURY_ADDRESS` | Protocol fee |
 | `CELO_RPC_URL`, `AGENT_PRIVATE_KEY`, `MEET_SETTLEMENT_ADDRESS` | Chain access |
 | `ATTRIBUTION_TAG`, `ERC8004_AGENT_ID` | Hackathon identity |

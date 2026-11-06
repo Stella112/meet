@@ -8,6 +8,7 @@ import { LiveExecutor, liveChain, liveQuotes } from "./live.js";
 import { textilePreviewBuy } from "./liveQuotes.js";
 import { xNewsSense } from "./news.js";
 import { Store } from "./store.js";
+import { freshStreet, streetEntry, tokenOk } from "./street.js";
 import type { Address, Hex, StoredObligation } from "./types.js";
 
 // Agent API for the web app plus the batch loop. Dry-run unless both live flags are set.
@@ -151,6 +152,26 @@ createServer(async (req, res) => {
           receipt: ledger.find((r) => r.obligationId === o.id) ?? null,
         }));
       return json(res, 200, { items, live: isLive(cfg) });
+    }
+
+    if (req.method === "GET" && url.pathname === "/api/street") {
+      const s = store.street();
+      return json(res, 200, {
+        street: s ? { nairaPerUsd: Number(s.cngn) / Number(s.usdt), source: s.source, at: s.at } : null,
+        fresh: freshStreet(s, now, cfg.STREET_MAX_AGE_HOURS) !== null,
+        maxAgeHours: cfg.STREET_MAX_AGE_HOURS,
+        entryEnabled: !!process.env.STREET_TOKEN,
+      });
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/street") {
+      if (!tokenOk(req.headers.authorization, process.env.STREET_TOKEN)) return json(res, 401, { error: "not allowed" });
+      const body = (await readBody(req)) as { rate?: unknown; source?: unknown };
+      const obs = streetEntry(body.rate, body.source, now);
+      if (typeof obs === "string") return json(res, 400, { error: obs });
+      store.setStreet(obs);
+      store.log(now, null, "street", `${Number(obs.cngn) / 1e6} NGN/USD ${obs.source}`);
+      return json(res, 200, { saved: { nairaPerUsd: Number(obs.cngn) / 1e6, source: obs.source, at: obs.at } });
     }
 
     json(res, 404, { error: "not found" });

@@ -8,6 +8,7 @@ import { CNGN, erc20, naira, obligationTypes, publicClient, settlementAbi, short
 
 type Preset = "payroll" | "supplier" | "bills";
 type Row = { label: string; wallet: string; naira: string };
+type Street = { street: null | { nairaPerUsd: number; source: string; at: number }; fresh: boolean };
 type AgentConfig = { settlement: `0x${string}`; maxObligationUsdt: string; bufferHours: number; live: boolean; textileMinCngn: string };
 type Item = {
   id: string;
@@ -39,6 +40,7 @@ export default function Home() {
   const [dueDate, setDueDate] = useState("");
   const [repeat, setRepeat] = useState(1);
   const [quote, setQuote] = useState<{ usdtPerNaira: number; source: string; at: number } | null>(null);
+  const [street, setStreet] = useState<Street | null>(null);
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState("");
@@ -68,6 +70,10 @@ export default function Home() {
         if (best) setQuote({ usdtPerNaira: Number(best) / 1e6 / 1400, source: q.textile ? "Textile" : "Uniswap", at: q.at });
       })
       .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/street").then((r) => r.json()).then(setStreet).catch(() => {});
   }, []);
 
   const plan = useMemo(() => {
@@ -235,6 +241,13 @@ export default function Home() {
                 </p>
               ) : (
                 <p className="muted">Today's rate: no data</p>
+              )}
+              {street?.fresh && street.street ? (
+                <p className="muted">
+                  Street rate: {naira(Math.round(street.street.nairaPerUsd))} per $1 ({street.street.source.replace(/^manual: /, "")}, entered {new Date(street.street.at * 1000).toLocaleString()})
+                </p>
+              ) : (
+                <p className="muted">Street rate: not entered today, so receipts show "vs street: no data".</p>
               )}
               {plan && (
                 <>

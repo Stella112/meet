@@ -11,7 +11,7 @@ Nothing here runs until Maris says "continue" for that row.
 | 5 | Create and fund maker wallet | Maris only | only if maker access is granted | pending |
 | 6 | Fund buy wallet | assisted | `pnpm --filter agent exec buy setup --name buy` (@celo/buy 0.8.5), then send stablecoin | created 0x134ee545D978Ad5e7a5aF2f082fa336C4589A018 (key in OS keychain); funded $0.40 USD₮ on 2026-11-06 |
 | 7 | Set `.env` | Maris only | copy `.env.example`; never paste keys in chat | pending |
-| 8 | Street-rate entry each day | Maris only | manual, timestamped | pending |
+| 8 | Street-rate entry each day | Maris only | usemeet.website/street with the owner token; older than 30 h shows "no data" | pending: first entry |
 | 9 | Approve mainnet deploy | Maris only | after `forge test` output | done: 0x6667…0591 |
 | 10 | Register ERC-8004 | agent-runnable | `register(agentURI)` from the agent wallet | done: agentId 10044, tx 0x33c7…0a17 |
 | 11 | Textile maker access | Maris only | Stitch Connect or contact@textilecredit.com | pending |

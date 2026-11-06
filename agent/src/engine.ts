@@ -3,6 +3,7 @@ import { decide } from "./decision.js";
 import { canBuy, canSpend, holdExceeded, stopLossHit } from "./guard.js";
 import { grossUp, route } from "./router.js";
 import { costAt, formatSaving, savedAgainst } from "./savings.js";
+import { freshStreet } from "./street.js";
 import type { Store } from "./store.js";
 import type { Lot, News, StoredObligation, Venue, VenueQuote } from "./types.js";
 
@@ -103,7 +104,7 @@ async function trySettle(d: Deps, o: StoredObligation, now: number, rule: string
   const sellAmount = grossUp(lot.usdtCost, d.cfg.PROTOCOL_FEE_BPS);
   try {
     const tx = await d.exec.settle(o, sellAmount);
-    const vsStreet = formatSaving(savedAgainst(o.o.buyAmount, sellAmount, d.store.street()));
+    const vsStreet = formatSaving(savedAgainst(o.o.buyAmount, sellAmount, freshStreet(d.store.street(), now, d.cfg.STREET_MAX_AGE_HOURS)));
     const vsDay1 = formatSaving(savedAgainst(o.o.buyAmount, sellAmount, o.day1));
     d.store.addLedger({
       obligationId: o.id,

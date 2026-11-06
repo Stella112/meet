@@ -5,7 +5,6 @@ import { DAY, HOUR, makeDeps, makeObligation, RATE, T0 } from "./fixtures.js";
 console.log("=== Meet dry-run: DEMO FIXTURES, not live data ===\n");
 
 const { d, w, exec } = makeDeps();
-d.store.setStreet({ usdt: 1_000_000n, cngn: 1375_000_000n, source: "demo manual", at: T0 });
 
 const due = T0 + 3 * DAY;
 for (const o of [
@@ -19,6 +18,8 @@ for (const o of [
 
 const step = async (title: string, at: number, change: () => void = () => {}) => {
   w.now = at;
+  // Daily manual street entry; a missed day would show "no data" on receipts.
+  d.store.setStreet({ usdt: 1_000_000n, cngn: 1375_000_000n, source: "demo manual", at });
   change();
   await runBatch(d, at);
   console.log(`-- ${title}`);
