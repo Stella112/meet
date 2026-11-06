@@ -13,7 +13,7 @@ Nothing here runs until Maris says "continue" for that row.
 | 7 | Set `.env` | Maris only | copy `.env.example`; never paste keys in chat | pending |
 | 8 | Street-rate entry each day | Maris only | manual, timestamped | pending |
 | 9 | Approve mainnet deploy | Maris only | after `forge test` output | done: 0x6667…0591 |
-| 10 | Register ERC-8004 | agent-runnable | `register(agentURI)` from the agent wallet | ready: card live, `pnpm --filter agent register:8004` simulates; send needs live flags |
+| 10 | Register ERC-8004 | agent-runnable | `register(agentURI)` from the agent wallet | done: agentId 10044, tx 0x33c7…0a17 |
 | 11 | Textile maker access | Maris only | Stitch Connect or contact@textilecredit.com | pending |
 | 12 | Textile API key (optional) | Maris only | Textile app | pending |
 | 13 | x402 API key (P1) | Maris only | x402.celo.org | pending |

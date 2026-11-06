@@ -11,7 +11,7 @@
 - **Services with proof:** TBD-post-build:buy-tx-hashes
 - **Contracts:** 0x666792B9eF14D6Ca9AAEee598784efcfD2840591
 - **Agent wallet:** 0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956
-- **agentId:** TBD-post-build:agent-id
+- **agentId:** 10044 (ERC-8004 Identity Registry on Celo, register tx 0x33c720a99de8c9b793748e7b3497383a4f638efa2c5cadefe99b5901b5a20a17)
 - **Tag:** celo_8d6bd2780c7d
 - **Repo:** https://github.com/Stella112/meet
 - **App:** https://usemeet.website
