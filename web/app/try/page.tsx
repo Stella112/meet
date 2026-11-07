@@ -57,7 +57,7 @@ export default function TryPage() {
         <h2 className="font-semibold">How to try it</h2>
         <ol className="list-decimal pl-5 space-y-1">
           <li>
-            Open <a className="underline" href="/">usemeet.website</a> in your wallet and connect.
+            Open <a className="underline" href="/app">the Meet app</a> in your wallet and connect.
           </li>
           <li>Pick Bills, enter the payee wallet, ₦1,400 and today's date.</li>
           <li>Approve the exact amount and sign. Your dollars stay in your wallet until the payee is paid.</li>
