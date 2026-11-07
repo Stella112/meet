@@ -78,8 +78,8 @@ export default function DashboardPage() {
   return (
     <>
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">Ledger</h1>
-        <p className="muted text-sm">Every payment Meet has made, what it cost, and how it compares. Totals only: no payee names or owner wallets.</p>
+        <h1 className="section-title">Proof: every payment Meet has made</h1>
+        <p className="muted text-sm">What each one cost and how it compares. Totals only: no payee names or wallets are shown. Every row links to the payment on-chain.</p>
         {d && !d.live && <p className="text-xs" style={{ color: "var(--warn)" }}>This agent is in dry-run: the figures below are simulated, nothing was sent on-chain.</p>}
         {err && <p className="text-sm">{err}</p>}
       </header>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
       {d && (
         <>
           <section className="card space-y-1">
-            <p className="text-sm muted">Naira delivered to payees</p>
+            <p className="text-sm muted">Naira paid out</p>
             <p className="font-semibold" style={{ fontSize: 48, lineHeight: 1.1 }}>
               {fmtNgn(d.payments.deliveredCngn)}
             </p>
@@ -99,7 +99,7 @@ export default function DashboardPage() {
 
           <section className="grid grid-cols-2 gap-3">
             <Tile
-              label="Vs converting on day 1"
+              label="Vs locking the rate on day 1"
               value={d.savings.vsDay1.counted ? saving(d.savings.vsDay1.totalCngn) : "no data"}
               note={`${d.savings.vsDay1.counted} of ${d.payments.paid} payments`}
             />
@@ -108,7 +108,7 @@ export default function DashboardPage() {
               value={d.savings.vsStreet.counted ? saving(d.savings.vsStreet.totalCngn) : "no data"}
               note={d.savings.vsStreet.missing ? `${d.savings.vsStreet.missing} without a same-day street rate` : `${d.savings.vsStreet.counted} payments`}
             />
-            <Tile label="Waiting to pay" value={String(open)} note={notPaid ? `${notPaid} closed unpaid, no funds moved` : "none closed unpaid"} />
+            <Tile label="Scheduled, not yet paid" value={String(open)} note={notPaid ? `${notPaid} closed unpaid, no funds moved` : "none closed unpaid"} />
             <Tile
               label="Paid services"
               value={`$${(Number(d.services.spentUsdt) / 1e6).toFixed(3)}`}

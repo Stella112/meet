@@ -37,7 +37,7 @@ export default function TryPage() {
   return (
     <>
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">Try Meet</h1>
+        <h1 className="section-title">Try Meet with about a dollar</h1>
         <p className="muted text-sm">
           Pay one naira bill from your dollars and see the receipt. Meet is a hackathon prototype on Celo, capped at about $1.10 per payment, so a test costs about
           a dollar.

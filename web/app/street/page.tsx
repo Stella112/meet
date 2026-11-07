@@ -52,7 +52,7 @@ export default function StreetPage() {
   return (
     <>
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold">Street rate</h1>
+        <h1 className="section-title">Street rate (owner only)</h1>
         <p className="muted text-sm">
           Enter it once a day: the naira you'd get for $1 selling dollars on the street (a BDC's buy price). Receipts compare each payment against it. After{" "}
           {current?.maxAgeHours ?? 30} hours without an entry they show "no data" rather than an old rate.
