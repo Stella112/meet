@@ -128,3 +128,4 @@ Reported depth: $79,597 selling USDT; ₦16,089,756 selling cNGN.
 
 | `reddit.posts.search` works through buy; envelope is `output.children[].post` with `authorInfo.name` and `content.markdown` | paid call `0x4f613704a6c8ec0c9c65660daaf7852729d91354eb67ffbe8e69d9a8c0496694` ($0.005), 2026-11-07 | GREEN |
 | Catalog still lists only `maximo-atlas-1.3` for Cencori; no other LLM, news or screening service | live catalog, 2026-11-07 | FLAG |
+| x402 rate feed live at usemeet.website/x402/rates ($0.001 USD₮/USDC to treasury), settled by api.x402.celo.org | buy-wallet purchase 0x4d22e96ab31a9ccd1def21fedd6f9ddee1594f41bac4370a71522de0d7bcd457 | GREEN |

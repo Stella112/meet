@@ -16,7 +16,7 @@ Nothing here runs until Maris says "continue" for that row.
 | 10 | Register ERC-8004 | agent-runnable | `register(agentURI)` from the agent wallet | done: agentId 10044, tx 0x33c7…0a17 |
 | 11 | Textile maker access | Maris only | Stitch Connect or contact@textilecredit.com | pending |
 | 12 | Textile API key (optional) | Maris only | Textile app | pending |
-| 13 | x402 API key (P1) | Maris only | x402.celo.org | pending |
+| 13 | x402 API key (P1) | Maris only | x402.celo.org | done 2026-11-07: on VPS; gate live at /x402/rates |
 | 14 | First live payments | assisted | two Maris wallets, tiny amounts | done: 2 Uniswap, 1 Textile |
 | 15 | Recruit eligible users | Maris only | check each wallet first: `node scripts/eligibility.mjs <addr>` | pending |
 | 16 | Optional top-up | assisted | dry-run first, eligible wallets only | pending |
