@@ -9,7 +9,13 @@ type Dashboard = {
   at: number;
   payments: { paid: number; byStatus: Record<string, number>; deliveredCngn: string; paidUsdt: string; nairaPerUsd: number | null; byVenue: Record<string, number>; byRule: Record<string, number> };
   savings: { vsDay1: Sum; vsStreet: Sum };
-  services: { calls: number; failed: number; spentUsdt: string; recent: { day: string; service: string; usdt: string; tx: string | null; ok: boolean }[] };
+  services: {
+    calls: number;
+    failed: number;
+    spentUsdt: string;
+    recent: { day: string; service: string; usdt: string; tx: string | null; ok: boolean }[];
+    byHand?: { day: string; service: string; usdt: string; tx: string; ok: boolean }[];
+  };
   news: { value: string; at: number } | null;
   street: { nairaPerUsd: number; source: string; at: number; fresh: boolean } | null;
   recent: { at: number; venue: string; rule: string; paidUsdt: string; deliveredCngn: string; savedDay1Cngn: string | null; savedStreetCngn: string | null; buyTx: string; settleTx: string }[];
@@ -176,6 +182,18 @@ export default function DashboardPage() {
               {d.services.recent.map((c, i) => (
                 <p key={i} className="muted">
                   {c.day} · {c.service} · ${(Number(c.usdt) / 1e6).toFixed(3)} · {c.ok ? "ok" : "failed"} {c.tx && <TxLink hash={c.tx} />}
+                </p>
+              ))}
+            </section>
+          )}
+
+          {!!d.services.byHand?.length && (
+            <section className="space-y-1 text-sm">
+              <h2 className="font-semibold">Paid calls made by hand while wiring services</h2>
+              <p className="muted text-xs">Outside the agent's loop, so not in the totals above. Each is a real payment from the buy wallet.</p>
+              {d.services.byHand.map((c) => (
+                <p key={c.tx} className="muted">
+                  {c.day} · {c.service} · ${(Number(c.usdt) / 1e6).toFixed(3)} · {c.ok ? "ok" : "paid, then failed"} <TxLink hash={c.tx} />
                 </p>
               ))}
             </section>

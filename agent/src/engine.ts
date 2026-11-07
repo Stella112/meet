@@ -32,8 +32,8 @@ export interface Executor {
 export interface Senses {
   /** Price charged per call in atomic USDT, recorded before the result is known. */
   newsPrice: bigint;
-  /** Exactly one attempt; never retried. */
-  news(): Promise<{ value: News; tx: string | null }>;
+  /** Exactly one attempt per source; never retried. `calls` lists each paid source separately when there are several. */
+  news(): Promise<{ value: News; tx: string | null; calls?: { service: string; atomic: bigint; tx: string | null; ok: boolean }[] }>;
 }
 
 export interface Notifier {
@@ -63,7 +63,8 @@ async function newsCheck(d: Deps, now: number, anyOpen: boolean): Promise<News> 
   }
   try {
     const r = await d.senses.news();
-    d.store.recordPaidCall(today, "news", d.senses.newsPrice, r.tx, true);
+    if (r.calls) for (const c of r.calls) d.store.recordPaidCall(today, c.service, c.atomic, c.tx, c.ok);
+    else d.store.recordPaidCall(today, "news", d.senses.newsPrice, r.tx, true);
     d.store.recordNews(now, r.value);
     d.store.log(now, null, "news", `${r.value} tx=${r.tx}`);
     return r.value;

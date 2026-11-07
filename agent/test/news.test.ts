@@ -42,3 +42,24 @@ describe("postsFrom", () => {
     expect(postsFrom(null)).toEqual([]);
   });
 });
+
+import { classifyCrossCheck, redditPostsFrom } from "../src/news.js";
+
+describe("cross-check", () => {
+  const shock = (author: string) => ({ author, text: "CBN devalues naira" });
+  const calm = (author: string) => ({ author, text: "naira steady today" });
+  test("shock needs a report on both platforms when both answered", () => {
+    expect(classifyCrossCheck([shock("a"), shock("b")], [calm("c")])).toBe("normal");
+    expect(classifyCrossCheck([shock("a")], [shock("r")])).toBe("shock");
+  });
+  test("one platform down falls back to the two-account rule", () => {
+    expect(classifyCrossCheck([shock("a"), shock("b")], null)).toBe("shock");
+    expect(classifyCrossCheck(null, [shock("a")])).toBe("normal");
+    expect(classifyCrossCheck(null, null)).toBe("unknown");
+  });
+  test("reddit envelope parsing", () => {
+    const body = { output: { children: [{ post: { authorInfo: { name: "u1" }, title: "CBN devalues naira", content: { markdown: "details" } } }, { post: {} }] } };
+    expect(redditPostsFrom(body)).toEqual([{ author: "u1", text: "CBN devalues naira. details" }]);
+    expect(redditPostsFrom({})).toEqual([]);
+  });
+});

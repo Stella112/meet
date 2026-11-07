@@ -1,4 +1,5 @@
 import type { LedgerRow, Store } from "./store.js";
+import { PAID_BY_HAND } from "./paidHistory.js";
 import { freshStreet } from "./street.js";
 
 // Public, aggregate view of the ledger. Never includes payee names (labels) or owner addresses.
@@ -57,6 +58,9 @@ export function buildDashboard(store: Store, now: number, opts: { live: boolean;
       // Failed calls count: a failure may still have been paid.
       spentUsdt: calls.reduce((s, c) => s + c.atomic, 0n),
       recent: calls.slice(-5).reverse().map((c) => ({ day: c.day, service: c.service, usdt: c.atomic, tx: c.tx, ok: c.ok })),
+      byService: tally(calls.map((c) => c.service)),
+      // Kept apart from the loop's own calls so the two are never confused.
+      byHand: PAID_BY_HAND.map((c) => ({ ...c })),
     },
     news: news ? { value: news.value, at: news.at } : null,
     street: street ? { nairaPerUsd: Number(street.cngn) / Number(street.usdt), source: street.source, at: street.at, fresh: freshStreet(street, now, opts.streetMaxAgeHours) !== null } : null,

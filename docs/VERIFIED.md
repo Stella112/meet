@@ -125,3 +125,6 @@ Reported depth: $79,597 selling USDT; ₦16,089,756 selling cNGN.
 | Blockscout's Etherscan-style `/api` allows 10 requests then locks for ~56 min without a key; `/api/v2` still answers | 429 with `x-ratelimit-limit: 10` | GREEN; checker uses v2 + forno |
 | forno serves historical state (nonce at a month-old block) | `eth_getTransactionCount` at block 79344042 | GREEN |
 | Git Bash `grep` on this PC aborts (exit 134) when `-F` and `-i` are combined, printing nothing | `echo abc \| grep -c -F -i -- abc` aborted | GREEN; secrets check redone in Node |
+
+| `reddit.posts.search` works through buy; envelope is `output.children[].post` with `authorInfo.name` and `content.markdown` | paid call `0x4f613704a6c8ec0c9c65660daaf7852729d91354eb67ffbe8e69d9a8c0496694` ($0.005), 2026-11-07 | GREEN |
+| Catalog still lists only `maximo-atlas-1.3` for Cencori; no other LLM, news or screening service | live catalog, 2026-11-07 | FLAG |

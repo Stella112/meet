@@ -6,7 +6,7 @@ import { runBatch, type Deps, type Executor } from "./engine.js";
 import { DryRunExecutor } from "./dryExecutor.js";
 import { LiveExecutor, liveChain, liveQuotes } from "./live.js";
 import { textilePreviewBuy } from "./liveQuotes.js";
-import { xNewsSense } from "./news.js";
+import { crossCheckNewsSense } from "./news.js";
 import { Store } from "./store.js";
 import { freshStreet, streetEntry, tokenOk } from "./street.js";
 import { buildDashboard } from "./dashboard.js";
@@ -35,7 +35,7 @@ const deps: Deps = {
   // Paid news spends real money even in dry-run, so it has its own switch and needs a buy account on this machine.
   senses:
     process.env.PAID_NEWS === "true" && process.env.BUY_ACCOUNT_NAME
-      ? xNewsSense(process.env.BUY_ACCOUNT_NAME)
+      ? crossCheckNewsSense(process.env.BUY_ACCOUNT_NAME)
       : { newsPrice: 0n, news: async () => ({ value: "unknown", tx: null }) },
   notify: { tell: (o, m) => store.log(clock(), o.id, "told_user", m) },
 };

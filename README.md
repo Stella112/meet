@@ -91,6 +91,7 @@ Paid from the buy wallet `0x134e…A018` in USD₮ on Celo mainnet, through the 
 | `x.posts.search` | News sense: last 24 h of naira/CBN posts | $0.005 | [`0xabc1…6bc`](https://celoscan.io/tx/0xabc1479292edf6b2f3445f2ba864d00f24464b80cd5fc5879f90711e832986bc) | 200, 16 posts |
 | `x.posts.search` | Same, through the agent's `xNewsSense` | $0.005 | [`0xd92b…93a`](https://celoscan.io/tx/0xd92b50c77f0a5ed1232d3524f5b5a8dc98c8aacc3b1381477243d6dbbf3b293a) | 200, classified `normal` |
 | `cencori.v1.chat.completions` | Tried for news classification | $0.01 | [`0xce8b…806`](https://celoscan.io/tx/0xce8b943c6e6ccad542c4d45c0b8d06307a78d6d0089f6035f01f6b42e78b7806) | Paid, then 400: model retired upstream. Not used. |
+| `reddit.posts.search` | News cross-check: a shock must also be reported on Reddit when both platforms answer | $0.005 | [`0x4f61…694`](https://celoscan.io/tx/0x4f613704a6c8ec0c9c65660daaf7852729d91354eb67ffbe8e69d9a8c0496694) | 200, posts parsed |
 
 ## What is verified
 
