@@ -20,7 +20,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <p>Your dollars stay in your wallet until your payee is paid. Meet buys naira early with its own money and bears that risk.</p>
             <p>Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.</p>
             <p>
-              <a className="underline" href="/dashboard">Ledger: every payment and what it saved</a>
+              <a className="underline" href="/dashboard">Ledger: every payment and what it saved</a> ·{" "}
+              <a className="underline" href="/try">Try Meet</a>
             </p>
             <p>
               Cash out cNGN to a bank:{" "}

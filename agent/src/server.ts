@@ -40,6 +40,36 @@ const deps: Deps = {
   notify: { tell: (o, m) => store.log(clock(), o.id, "told_user", m) },
 };
 
+// Public eligibility self-check, shared with scripts/eligibility.mjs. One check at a time, cached, so Blockscout is not hammered.
+type Elig = { context(): Promise<unknown>; checkAddress(a: string, ctx: unknown): Promise<{ verdict: string; checks: { rule: string; ok: boolean | null; detail: string }[]; meetPayments: number }> };
+const eligMod = import(new URL("../../scripts/eligibility-core.mjs", import.meta.url).href) as Promise<Elig>;
+let eligCtx: { at: number; ctx: Promise<unknown> } | null = null;
+const eligCache = new Map<string, { at: number; body: unknown }>();
+let eligQueue: Promise<unknown> = Promise.resolve();
+let eligWaiting = 0;
+async function eligibility(address: string, now: number): Promise<unknown> {
+  const hit = eligCache.get(address);
+  if (hit && now - hit.at < 600) return hit.body;
+  if (eligWaiting >= 3) throw new Error("busy");
+  eligWaiting++;
+  const run = eligQueue.then(async () => {
+    const m = await eligMod;
+    if (!eligCtx || now - eligCtx.at > 6 * 3600) eligCtx = { at: now, ctx: m.context() };
+    const r = await m.checkAddress(address, await eligCtx.ctx);
+    // The checker speaks to the builder ("your agent wallet"); the public page is read by the wallet's owner.
+    const body = { verdict: r.verdict, meetPayments: r.meetPayments, checks: r.checks.map((c) => ({ ...c, detail: c.detail.replaceAll("your ", "Meet's ") })) };
+    if (eligCache.size > 500) eligCache.clear();
+    eligCache.set(address, { at: now, body });
+    return body;
+  });
+  eligQueue = run.catch(() => {});
+  try {
+    return await run;
+  } finally {
+    eligWaiting--;
+  }
+}
+
 const json = (res: ServerResponse, code: number, body: unknown) => {
   res.writeHead(code, { "content-type": "application/json" });
   res.end(JSON.stringify(body, (_k, v) => (typeof v === "bigint" ? v.toString() : v)));
@@ -153,6 +183,17 @@ createServer(async (req, res) => {
           receipt: ledger.find((r) => r.obligationId === o.id) ?? null,
         }));
       return json(res, 200, { items, live: isLive(cfg) });
+    }
+
+    if (req.method === "GET" && url.pathname === "/api/eligibility") {
+      const address = (url.searchParams.get("address") ?? "").trim().toLowerCase();
+      if (!/^0x[0-9a-f]{40}$/.test(address)) return json(res, 400, { error: "enter a 0x wallet address" });
+      try {
+        return json(res, 200, await eligibility(address, now));
+      } catch (e) {
+        if (String(e).includes("busy")) return json(res, 429, { error: "Busy checking other wallets. Try again in a minute." });
+        return json(res, 502, { error: "Could not read Celo data right now. Try again in a minute." });
+      }
     }
 
     if (req.method === "GET" && url.pathname === "/api/dashboard") {

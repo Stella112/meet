@@ -55,7 +55,7 @@ Each task has one verification command. Feature freeze Sunday evening.
 | Kit and eligibility checker | `node scripts/eligibility.mjs <addr>` (checker done 2026-11-06; kit not started) |
 | README | `node scripts/check-readme.mjs` |
 | Submission | `grep -c TBD-post-build docs/SUBMISSION.md` returns 0 |
-| Secrets | `git log -p \| grep -i "private\|key"` reviewed |
+| Secrets | `git log -p \| grep -i "private\|key"` reviewed (done 2026-11-07: agent key absent from all 21 commits, checked in Node; no `.env` ever committed) |
 
 ## Risks
 

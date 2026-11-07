@@ -124,3 +124,4 @@ Reported depth: $79,597 selling USDT; ₦16,089,756 selling cNGN.
 | Your main funder: `0xd2557d5e918e57f31d38daba28a5f7df838b1b2d` first funded the treasury (59.7 CELO, 2026-11-05); 1 tx ever, so personal, not an exchange | Blockscout v2 | GREEN |
 | Blockscout's Etherscan-style `/api` allows 10 requests then locks for ~56 min without a key; `/api/v2` still answers | 429 with `x-ratelimit-limit: 10` | GREEN; checker uses v2 + forno |
 | forno serves historical state (nonce at a month-old block) | `eth_getTransactionCount` at block 79344042 | GREEN |
+| Git Bash `grep` on this PC aborts (exit 134) when `-F` and `-i` are combined, printing nothing | `echo abc \| grep -c -F -i -- abc` aborted | GREEN; secrets check redone in Node |
