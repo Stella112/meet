@@ -11,7 +11,7 @@ Prototype for a hackathon, not a licensed money service. A regulatory review is 
 
 TBD-post-build:video-url
 
-App: https://usemeet.website (agent in dry-run until live keys are set)
+App: https://usemeet.website (agent live on Celo mainnet since 2026-11-07, capped at $1.10 per payment and $1.10 of cNGN exposure). Ledger: https://usemeet.website/dashboard
 
 ## What it does
 
