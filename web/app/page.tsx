@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { isAddress } from "viem";
-import { useConnect, useConnection, useDisconnect, useWalletClient } from "wagmi";
+import { useConnect, useConnection, useDisconnect, useSwitchChain, useWalletClient } from "wagmi";
 import { celo } from "wagmi/chains";
 import { CNGN, erc20, naira, obligationTypes, publicClient, settlementAbi, short, TAG, txLink, USDT, usd } from "@/lib/chain";
 
@@ -196,8 +196,11 @@ export default function Home() {
         <WalletPicker />
       ) : chainId !== celo.id ? (
         <div className="card text-sm space-y-2">
-          <p>Switch your wallet to Celo.</p>
-          <SwitchWallet />
+          <p>Your wallet is connected to this site on another network. Meet runs on Celo.</p>
+          <SwitchToCelo />
+          <p className="muted text-xs">
+            Or change the network for this site in your wallet, or <SwitchWallet />.
+          </p>
         </div>
       ) : (
         <>
@@ -320,6 +323,19 @@ function WalletPicker() {
           {c.name}
         </button>
       ))}
+      {error && <p style={{ color: "var(--warn)" }}>{error.message.split("\n")[0]}</p>}
+    </div>
+  );
+}
+
+function SwitchToCelo() {
+  // Asks the wallet to switch; wagmi adds Celo to the wallet first if it is missing.
+  const { mutate, isPending, error } = useSwitchChain();
+  return (
+    <div className="space-y-1">
+      <button className="btn" disabled={isPending} onClick={() => mutate({ chainId: celo.id })}>
+        {isPending ? "Check your wallet…" : "Switch to Celo"}
+      </button>
       {error && <p style={{ color: "var(--warn)" }}>{error.message.split("\n")[0]}</p>}
     </div>
   );
