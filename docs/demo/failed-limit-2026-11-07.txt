@@ -1,0 +1,18 @@
+Failed-limit proof · 2026-11-07T15:08:59.819Z · throwaway owner 0x786AB708215817d343cA814d566BB84c30fe298d (unfunded)
+
+A. Agent API at https://usemeet.website
+REFUSED as expected  worst case $1.100001, one millionth of a dollar over the $1.1 cap: HTTP 400 failed-limit proof: over_cap
+REFUSED as expected  already expired: HTTP 400 failed-limit proof: expired
+
+B. MeetSettlement 0x666792B9eF14D6Ca9AAEee598784efcfD2840591 on Celo mainnet (eth_call, nothing sent)
+REFUSED as expected  agent asks for 1 unit more than the signed worst case: AboveMax
+REFUSED as expected  someone other than the agent calls settle: NotSolver
+REFUSED as expected  settle after the obligation expired: Expired
+REFUSED as expected  settle before the payment window opens: NotYetValid
+
+C. Agent guard (demo fixtures, offline)
+REFUSED as expected  market rate worse than the user's worst rate: not_converted: above_worst_rate
+REFUSED as expected  payment bigger than the agent's cNGN exposure cap: guard_block: exposure_cap
+REFUSED as expected  kill switch on: nothing bought, nothing logged (paused)
+
+All limits held. No transaction was sent and no funds moved.

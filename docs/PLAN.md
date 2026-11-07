@@ -46,7 +46,7 @@ Each task has one verification command. Feature freeze Sunday evening.
 |---|---|
 | Stitch feed (if access granted) | `cast receipt <maker-fill-tx> --rpc-url https://forno.celo.org` |
 | Dashboard from ledger | `pnpm --filter agent vitest run dashboard` |
-| P1 in order: netting, x402, failed-limit proof | `node scripts/failed-limit.mjs` (others get own command when started) |
+| P1 in order: netting, x402, failed-limit proof | `pnpm --filter agent failed-limit` (done 2026-11-07, output in docs/demo/failed-limit-2026-11-07.txt); others get own command when started |
 
 ## Phase 6: Users, README, demo (Sat–Sun)
 
