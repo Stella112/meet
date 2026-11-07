@@ -1,0 +1,34 @@
+# x402 paywall for Meet's live naira rate board. Served by `buy gate` (meet-x402.service) on 127.0.0.1:4402,
+# reached through Caddy at https://usemeet.website/x402/rates. The agent answers only requests carrying
+# X-Meet-Gate, which this gate injects from MEET_GATE_SECRET.
+name: meet-rates
+version: 1
+network: celo
+payTo: "0xD452eed08e545d186c8a87e4c9001fc08A60Bab7"
+trustProxy: true
+tokens: [USDT, USDC]
+
+rateLimit:
+  scope: ip
+  requestsPerMinute: 60
+  burst: 10
+
+services:
+  meet:
+    mode: proxy
+    upstream: http://127.0.0.1:8797
+    timeoutMs: 20000
+    injectHeaders:
+      X-Meet-Gate: MEET_GATE_SECRET
+    forwardHeaders: []
+    probe:
+      path: /x402/rates
+      method: GET
+
+endpoints:
+  - path: /x402/rates
+    service: meet
+    price: 0.001 USDT
+    description: "Meet live naira rate board: USD₮ cost of ₦1,400 / ₦14,000 / ₦138,000 in cNGN on Textile and Uniswap (Celo), best venue, spread, and the latest street rate."
+    restrictions:
+      methods: [GET]

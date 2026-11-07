@@ -10,6 +10,7 @@ import { crossCheckNewsSense } from "./news.js";
 import { Store } from "./store.js";
 import { freshStreet, streetEntry, tokenOk } from "./street.js";
 import { buildDashboard } from "./dashboard.js";
+import { BOARD_SIZES_NGN, board, boardRow } from "./rates.js";
 import type { Address, Hex, StoredObligation } from "./types.js";
 
 // Agent API for the web app plus the batch loop. Dry-run unless both live flags are set.
@@ -69,6 +70,8 @@ async function eligibility(address: string, now: number): Promise<unknown> {
     eligWaiting--;
   }
 }
+
+let ratesCache: { at: number; body: unknown } | null = null;
 
 const json = (res: ServerResponse, code: number, body: unknown) => {
   res.writeHead(code, { "content-type": "application/json" });
@@ -183,6 +186,22 @@ createServer(async (req, res) => {
           receipt: ledger.find((r) => r.obligationId === o.id) ?? null,
         }));
       return json(res, 200, { items, live: isLive(cfg) });
+    }
+
+    // Sold through the x402 gate (deploy/x402-gate.yaml), which injects X-Meet-Gate. Without it this answers 404,
+    // so the paid feed cannot be read for free.
+    if (req.method === "GET" && url.pathname === "/x402/rates") {
+      if (!tokenOk(`Bearer ${req.headers["x-meet-gate"] ?? ""}`, process.env.MEET_GATE_SECRET)) return json(res, 404, { error: "not found" });
+      if (!ratesCache || now - ratesCache.at >= 30) {
+        const rows = await Promise.all(BOARD_SIZES_NGN.map(async (n) => {
+          const cngn = n * 1_000_000n;
+          const [t, u] = await Promise.all([quotes.textileBuy(cngn), quotes.uniswapBuy(cngn)]);
+          return boardRow(n, t, u);
+        }));
+        const s = store.street();
+        ratesCache = { at: now, body: board(now, rows, s, freshStreet(s, now, cfg.STREET_MAX_AGE_HOURS) !== null) };
+      }
+      return json(res, 200, ratesCache.body);
     }
 
     if (req.method === "GET" && url.pathname === "/api/eligibility") {

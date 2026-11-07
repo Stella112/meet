@@ -1,7 +1,13 @@
-# Appended to /etc/caddy/Caddyfile on the VPS. Only the web app is public; the agent stays on localhost.
+# The usemeet.website block in /etc/caddy/Caddyfile on the VPS. Only the web app and the x402 gate are public;
+# the agent stays on localhost.
 usemeet.website {
     encode zstd gzip
-    reverse_proxy 127.0.0.1:3797
+    handle /x402/* {
+        reverse_proxy 127.0.0.1:4402
+    }
+    handle {
+        reverse_proxy 127.0.0.1:3797
+    }
 }
 
 www.usemeet.website {

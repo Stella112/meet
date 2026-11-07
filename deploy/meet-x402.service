@@ -1,0 +1,24 @@
+[Unit]
+Description=Meet x402 paywall for the rate board (localhost only; Caddy serves usemeet.website/x402/*)
+After=network-online.target meet-agent.service
+Wants=network-online.target
+
+[Service]
+User=meet
+Group=meet
+WorkingDirectory=/opt/meet/agent
+Environment=BUY_HOME=/var/lib/meet/buy
+# Settlement: real when BUY_FACILITATOR_URL_MAINNET and BUY_FACILITATOR_API_KEY are in /opt/meet/.env and
+# GATE_MODE is empty; GATE_MODE=--mock verifies payments but never settles.
+EnvironmentFile=-/opt/meet/deploy/x402-gate.env
+ExecStart=/bin/sh -c 'exec /usr/bin/node --env-file=/opt/meet/.env --import /opt/meet/deploy/bind-localhost.mjs /opt/meet/agent/node_modules/@celo/buy/dist/main.js gate /opt/meet/deploy/x402-gate.yaml --port 4402 $GATE_MODE'
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/meet
+
+[Install]
+WantedBy=multi-user.target
