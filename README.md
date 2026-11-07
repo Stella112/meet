@@ -108,6 +108,8 @@ Paid from the buy wallet `0x134e…A018` in USD₮ on Celo mainnet, through the 
 
 - One real ₦1,400 test payment via Textile (same builder-controlled wallets): buy [`0xcd04…7ae`](https://celoscan.io/tx/0xcd0484f327d5e2858145455011a8f4423f32daefa943dc960ce0eeb86ebdb7ae), settle [`0x60b2…0ce`](https://celoscan.io/tx/0x60b2ca395edde9fe2e967803f3d451d1d9a7bd7a696a7b2015177fa3e23240ce). Textile's minimum quote on this corridor is ₦1,377.406.
 
+- Failed-limit proof (`pnpm --filter agent failed-limit`, output in [`docs/demo/failed-limit-2026-11-07.txt`](docs/demo/failed-limit-2026-11-07.txt)): with a throwaway unfunded key, the live API refuses an obligation $0.000001 over the cap; the mainnet contract reverts `AboveMax`, `NotSolver`, `Expired` and `NotYetValid` under `eth_call`; the agent guard refuses a worse-than-worst rate, the exposure cap and the kill switch. No tx sent, no funds moved.
+
 ## Roadmap
 
 Freelancer runway, school fees and family split presets. Silent netting. A paid x402 rate feed.
