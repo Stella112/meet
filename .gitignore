@@ -10,3 +10,7 @@ contracts/broadcast/
 .next/
 dist/
 agent/data/
+video/node_modules/
+video/out/
+video/public/vo/
+docs/demo/*.mp4
