@@ -1,15 +1,16 @@
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "Meet",
-  "description": "Naira treasury agent for dollar earners. Holds USD₮ in the user's own wallet, buys cNGN just in time within a signed worst rate (Textile or Uniswap on Celo), pays the payee atomically through MeetSettlement, and logs savings against the street rate and the day-1 rate. Code makes every money decision; the LLM only classifies news and writes receipts. Hackathon prototype, not a licensed money service.",
+  "description": "Naira treasury agent for dollar earners. Holds USD₮ in the user's own wallet, buys cNGN just in time within a signed worst rate (Textile or Uniswap on Celo), pays the payee atomically through MeetSettlement, and logs savings against the street rate and the day-1 rate. Code makes every money decision: a paid X and Reddit news check is classified by a tested rule, with no LLM involved. Hackathon prototype, not a licensed money service.",
   "image": "https://usemeet.website/icon.svg",
   "services": [
     { "name": "web", "endpoint": "https://usemeet.website/" },
     { "name": "agentWallet", "endpoint": "eip155:42220:0x9155dEb21b6d7E8377C3ba2Fe9Ea6F0F5Cf0A956" },
     { "name": "settlementContract", "endpoint": "eip155:42220:0x666792B9eF14D6Ca9AAEee598784efcfD2840591" },
+    { "name": "x402-rates", "endpoint": "https://usemeet.website/x402/rates" },
     { "name": "source", "endpoint": "https://github.com/Stella112/meet" }
   ],
-  "x402Support": false,
+  "x402Support": true,
   "active": true,
   "registrations": [
     { "agentId": 10044, "agentRegistry": "eip155:42220:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432" }

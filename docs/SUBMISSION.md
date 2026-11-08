@@ -17,3 +17,4 @@
 - **App:** https://usemeet.website
 - **Video:** TBD-post-build:video-url
 - **Disclaimer:** Prototype for a hackathon, not a licensed money service. A regulatory review is needed before launch.
+- **x402 PayTo:** 0xD452eed08e545d186c8a87e4c9001fc08A60Bab7 (rate feed at https://usemeet.website/x402/rates; x402 payments cannot carry attribution tags)
