@@ -136,6 +136,20 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* 5b. How Meet gets the naira */}
+      <section className="max-w-3xl mx-auto space-y-4">
+        <p className="badge">Where the naira comes from</p>
+        <h2 className="section-title">Meet plans around the day you need the naira.</h2>
+        <p className="text-lg muted leading-relaxed">
+          Because Meet knows what you'll need and when, it doesn't have to gamble on the rate. Inside each bill's window it compares a firm quote from Textile FX with
+          Uniswap on Celo, every time, uses the cheaper one and records why. It never goes past the worst price you signed.
+        </p>
+        <p className="text-lg muted leading-relaxed">
+          One payment takes your dollars and delivers the naira to your payee together, or nothing moves at all. If a payment can't go through, the naira Meet already
+          bought stays Meet's problem: it retries, then sells it back, and you're told "not paid, no funds moved".
+        </p>
+      </section>
+
       {/* 6. Who it's for */}
       <section className="space-y-6">
         <h2 className="section-title text-center">Who it's for</h2>
@@ -178,6 +192,23 @@ export default function Landing() {
           These limits are enforced by a smart contract on Celo, not just by the app, and we've tested that they hold.{" "}
           <a className="underline" href="https://github.com/Stella112/meet/blob/main/docs/demo/failed-limit-2026-11-07.txt" target="_blank" rel="noreferrer">See the test</a>.
         </p>
+      </section>
+
+      {/* 7b. How it's different */}
+      <section className="space-y-6">
+        <h2 className="section-title text-center">How Meet is different</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            ["Swap apps and P2P", "You pick the moment and find someone to trade with. Meet picks the moment for you, and needs no counterparty."],
+            ["Tools that watch your exposure", "They tell you how much naira risk you hold. Meet also times the conversion around your real bills, pays them and proves the savings."],
+            ["Trading desks", "Built for traders. Meet is for people and businesses paying real obligations: salaries, suppliers and rent."],
+          ].map(([t, d]) => (
+            <div key={t} className="card space-y-2">
+              <h3 className="font-semibold text-lg">{t}</h3>
+              <p className="muted">{d}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* 8. Under the hood */}
